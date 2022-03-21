@@ -39,6 +39,22 @@ spec:
                   name: default
                   kind: ScanSetting
                   apiGroup: compliance.openshift.io/v1alpha1
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: compliance.openshift.io/v1alpha1
+                kind: ScanSetting
+                metadata:
+                  name: default
+                  namespace: openshift-compliance
+                autoApplyRemediations: false
+                debug: true
+                rawResultStorage:
+                  rotation: 10
+                  size: 2Gi
+                roles:
+                  - worker
+                  - master
+                schedule: 0 1 * * *
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
