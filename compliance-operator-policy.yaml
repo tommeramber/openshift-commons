@@ -27,7 +27,7 @@ spec:
                 kind: Subscription
                 metadata:
                   name: compliance-operator
-                  namespace: openshift-operators 
+                  namespace: openshift-compliance 
                 spec:
                   channel: release-0.1 
                   name: compliance-operator  
