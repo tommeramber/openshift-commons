@@ -15,7 +15,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: comp-operator-ns
+          name: namespace-compliance-operator
         spec:
           remediationAction: enforce
           severity: high
@@ -30,7 +30,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: comp-operator-operator-group
+          name: operator-group-compliance-operator
         spec:
           remediationAction: enforce
           severity: high
@@ -49,7 +49,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: comp-operator-subscription
+          name: compliance-operator-subscription
         spec:
           remediationAction: enforce
           severity: high
@@ -70,10 +70,10 @@ spec:
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: policy-comp-operator-binding
+  name: binding-policy-compliance-operator
   namespace: rhacm-policies
 placementRef:
-  name: dev-clusters
+  name: commons-clusters
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:

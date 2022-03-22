@@ -3,6 +3,7 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
   name: policy-gatekeeper-operator
+  namespace: rhacm-policies
   annotations:
     policy.open-cluster-management.io/standards: NIST SP 800-53
     policy.open-cluster-management.io/categories: CM Configuration Management
@@ -15,7 +16,7 @@ spec:
       apiVersion: policy.open-cluster-management.io/v1
       kind: ConfigurationPolicy
       metadata:
-        name: gatekeeper-operator-product-sub
+        name: gatekeeper-operator-subscription
       spec:
         remediationAction: enforce
         severity: high
@@ -25,7 +26,7 @@ spec:
               apiVersion: operators.coreos.com/v1alpha1
               kind: Subscription
               metadata:
-                name: gatekeeper-operator-product
+                name: gatekeeper-operator
                 namespace: openshift-operators
               spec:
                 channel: stable
@@ -37,7 +38,7 @@ spec:
       apiVersion: policy.open-cluster-management.io/v1
       kind: ConfigurationPolicy
       metadata:
-        name: gatekeeper
+        name: gatekeeper-instance
       spec:
         remediationAction: enforce
         severity: high
@@ -65,23 +66,12 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: binding-policy-gatekeeper-operator
+  namespace: rhacm-policies
 placementRef:
-  name: placement-policy-gatekeeper-operator
+  name: commons-clusters
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
 - name: policy-gatekeeper-operator
   kind: Policy
   apiGroup: policy.open-cluster-management.io
----
-apiVersion: apps.open-cluster-management.io/v1
-kind: PlacementRule
-metadata:
-  name: placement-policy-gatekeeper-operator
-spec:
-  clusterConditions:
-    - status: "True"
-      type: ManagedClusterConditionAvailable
-  clusterSelector:
-    matchExpressions:
-      - { key: environment, operator: In, values: ["dev"] }

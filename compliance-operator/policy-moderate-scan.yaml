@@ -81,7 +81,7 @@ metadata:
   name: policy-moderate-scan-binding
   namespace: rhacm-policies
 placementRef:
-  name: dev-clusters
+  name: commons-clusters
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
