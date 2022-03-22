@@ -3,8 +3,8 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
   name: policy-compliance-operator
+  namespace: rhacm-policies
   annotations:
-    # Edit
     policy.open-cluster-management.io/standards: NIST SP 800-53
     policy.open-cluster-management.io/categories: CM Configuration Management
     policy.open-cluster-management.io/controls: CM-2 Baseline Configuration
@@ -16,34 +16,30 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: policy-compliance-operator
+          name: policy-compliance-operator-sub
         spec:
           remediationAction: enforce
-          severity: low
+          severity: high
           object-templates:
-            - complianceType: musthave
-              objectDefinition:
-                apiVersion: v1
-                kind: Namespace
-                metadata:
-                  name: openshift-compliance
             - complianceType: musthave
               objectDefinition:
                 apiVersion: operators.coreos.com/v1alpha1
                 kind: Subscription
                 metadata:
                   name: compliance-operator
-                  namespace: openshift-compliance 
+                  namespace: openshift-operators 
                 spec:
-                  channel: release-0.1 
-                  name: compliance-operator  
-                  source: redhat-operators 
-                  sourceNamespace: openshift-marketplace 
+                  channel: release-0.1
+                  installPlanApproval: Automatic
+                  name: compliance-operator
+                  source: redhat-operators
+                  sourceNamespace: openshift-marketplace
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: binding-policy-compliance-operator
+  namespace: rhacm-policies
 placementRef:
   name: placement-policy-compliance-operator
   kind: PlacementRule
@@ -57,10 +53,11 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: placement-policy-compliance-operator
+  namespace: rhacm-policies
 spec:
   clusterConditions:
     - status: "True"
       type: ManagedClusterConditionAvailable
   clusterSelector:
     matchExpressions:
-      - { key: environment, operator: In, values: ["dev"] }
+      - { key: environment, operator: In, values: ["demo"] }
