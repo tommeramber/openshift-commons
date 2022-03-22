@@ -9,7 +9,6 @@ Wait until policy finishes
 <managed cluster> oc get pods
 <managed cluster> oc get profiles.compliance.openshift.io
 <managed cluster> oc get profiles.compliance.openshift.io ocp4-moderate -ojson | jq '.rules' | less
-<managed cluster> oc get profiles.compliance.openshift.io ocp4-moderate -ojson | jq '.rules' | grep XXXX
 ```
 
 ```bash
