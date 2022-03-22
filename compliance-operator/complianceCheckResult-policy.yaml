@@ -1,0 +1,57 @@
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-compliance-check-result
+  namespace: rhacm-policies
+  annotations:
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: SC System and Communications Protection
+    policy.open-cluster-management.io/controls: SC-28 (1) Cryptographic Protection
+spec:
+  remediationAction: inform
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: compliance-check-result
+        spec:
+          remediationAction: inform
+          severity: low
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: config.openshift.io/v1
+                kind: ComplianceCheckResult
+                metadata:
+                  name: XXXXXX
+                status:
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-policy-compliance-check-result
+  namespace: rhacm-policies
+placementRef:
+  name: placement-policy-compliance-check-result
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+  - name: policy-compliance-check-result
+    kind: Policy
+    apiGroup: policy.open-cluster-management.io
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: placement-policy-compliance-check-result
+  namespace: rhacm-policies
+spec:
+  clusterConditions:
+  - status: "True"
+    type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchExpressions:
+      - {key: environment, operator: In, values: ["demo"]}
