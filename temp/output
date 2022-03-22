@@ -1,0 +1,5 @@
+NAME                                           CONTENTIMAGE                                                                                                                               CONTENTFILE         STATUS
+profilebundle.compliance.openshift.io/ocp4     registry.redhat.io/compliance/openshift-compliance-content-rhel8@sha256:6f24fec15e651a0db1d02b5dcc2884e32e8639bda7f90f72abd8853ccdf4b166   ssg-ocp4-ds.xml     PENDING
+profilebundle.compliance.openshift.io/rhcos4   registry.redhat.io/compliance/openshift-compliance-content-rhel8@sha256:6f24fec15e651a0db1d02b5dcc2884e32e8639bda7f90f72abd8853ccdf4b166   ssg-rhcos4-ds.xml   PENDING
+oc edit profilebundles.compliance.openshift.io -n openshift-compliance
+oc delete profilebundles.compliance.openshift.io --all -n openshift-compliance
