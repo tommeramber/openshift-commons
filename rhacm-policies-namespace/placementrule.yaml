@@ -1,0 +1,13 @@
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: commons-clusters
+  namespace: rhacm-policies
+spec:
+  clusterConditions:
+    - type: ManagedClusterConditionAvailable
+      status: "True"
+  clusterSelector:
+    matchLabels:
+      environment: demo 

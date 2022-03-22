@@ -3,7 +3,6 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
   name: policy-gatekeeper-operator
-  namespace: rhacm-policies
   annotations:
     policy.open-cluster-management.io/standards: NIST SP 800-53
     policy.open-cluster-management.io/categories: CM Configuration Management
@@ -66,7 +65,6 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: binding-policy-gatekeeper-operator
-  namespace: rhacm-policies
 placementRef:
   name: placement-policy-gatekeeper-operator
   kind: PlacementRule
@@ -80,11 +78,10 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: placement-policy-gatekeeper-operator
-  namespace: rhacm-policies
 spec:
   clusterConditions:
     - status: "True"
       type: ManagedClusterConditionAvailable
   clusterSelector:
     matchExpressions:
-      - { key: environment, operator: In, values: ["demo"] }
+      - { key: environment, operator: In, values: ["dev"] }

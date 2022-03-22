@@ -1,4 +1,3 @@
----
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
@@ -6,8 +5,8 @@ metadata:
   namespace: rhacm-policies
   annotations:
     policy.open-cluster-management.io/standards: NIST SP 800-53
-    policy.open-cluster-management.io/categories: CM Configuration Management
-    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration
+    policy.open-cluster-management.io/categories: CA Security Assessment and Authorization
+    policy.open-cluster-management.io/controls: CA-2 Security Assessments
 spec:
   remediationAction: enforce
   disabled: false
@@ -16,65 +15,68 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: policy-compliance-operator
+          name: comp-operator-ns
         spec:
           remediationAction: enforce
           severity: high
           object-templates:
             - complianceType: musthave
               objectDefinition:
-              apiVersion: v1
-              kind: Namespace
-              metadata:
-                name: openshift-compliance
+                apiVersion: v1
+                kind: Namespace
+                metadata:
+                  name: openshift-compliance
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: comp-operator-operator-group
+        spec:
+          remediationAction: enforce
+          severity: high
+          object-templates:
             - complianceType: musthave
               objectDefinition:
                 apiVersion: operators.coreos.com/v1
                 kind: OperatorGroup
                 metadata:
-                  name: openshift-compliance
+                  name: compliance-operator
                   namespace: openshift-compliance
-                spec: {}
+                spec:
+                  targetNamespaces:
+                    - openshift-compliance
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: comp-operator-subscription
+        spec:
+          remediationAction: enforce
+          severity: high
+          object-templates:
             - complianceType: musthave
               objectDefinition:
                 apiVersion: operators.coreos.com/v1alpha1
                 kind: Subscription
                 metadata:
-                  labels:
-                    operators.coreos.com/compliance-operator.openshift-compliance: ""
                   name: compliance-operator
-                  namespace: openshift-compliance 
+                  namespace: openshift-compliance
                 spec:
-                  channel: release-0.1
                   installPlanApproval: Automatic
                   name: compliance-operator
                   source: redhat-operators
                   sourceNamespace: openshift-marketplace
-                  startingCSV: compliance-operator.v0.1.48
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: binding-policy-compliance-operator
+  name: policy-comp-operator-binding
   namespace: rhacm-policies
 placementRef:
-  name: placement-policy-compliance-operator
+  name: dev-clusters
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
   - name: policy-compliance-operator
     kind: Policy
     apiGroup: policy.open-cluster-management.io
----
-apiVersion: apps.open-cluster-management.io/v1
-kind: PlacementRule
-metadata:
-  name: placement-policy-compliance-operator
-  namespace: rhacm-policies
-spec:
-  clusterConditions:
-    - status: "True"
-      type: ManagedClusterConditionAvailable
-  clusterSelector:
-    matchExpressions:
-      - { key: environment, operator: In, values: ["demo"] }
