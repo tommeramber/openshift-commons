@@ -37,6 +37,24 @@ Wait until policy finishes
 <managed cluster> oc get complianceremediations.compliance.openshift.io ocp4-moderate-api-server-encryption-provider-config -o json | jq '"Spec:", .spec,"Status:", .status'
 ```
 
+## How it should look in ACM's UI
+
+1. A violation has been fired
+![Screenshot from 2022-03-23 00-35-31](https://user-images.githubusercontent.com/60185557/159587810-ce16e5f5-41b6-4fae-b20c-65bc3b9334e0.png)
+
+2. We can investigate the placement and cluster
+![Screenshot from 2022-03-23 00-35-37](https://user-images.githubusercontent.com/60185557/159587818-a02bab3f-7c5f-4f9b-a987-ab488be2b5f8.png)
+
+3. And also see the msg of the voilation => Go to `View details` to see the detailed information
+![Screenshot from 2022-03-23 00-35-45](https://user-images.githubusercontent.com/60185557/159587844-10a57b01-8a98-4f75-9403-b6c959b157c8.png)
+
+4. Down at the bottom you can see all the ComplianceCheckResult objects that have status of `FAIL` as the policy declared they should not exist on the managed cluster
+![Screenshot from 2022-03-23 00-36-06](https://user-images.githubusercontent.com/60185557/159587862-0a2f70ef-73eb-4f8b-8802-fe8623b1ab2e.png)
+
+5. Finaly we can see the specific ComplianceCheckResult we saw earlier, but now from the ACM's Hub UI, which means we can do everything from ACM directly
+![Screenshot from 2022-03-23 00-36-27](https://user-images.githubusercontent.com/60185557/159587871-425c669c-12cb-4678-b3d8-46bcb49470db.png)
+
+
 ### Option 1 - complianceremediations apply=true
 ```bash
 <managed cluster> # oc patch complianceremediations/ocp4-moderate-api-server-encryption-provider-config --patch '{"spec":{"apply":true}}' --type=merge
