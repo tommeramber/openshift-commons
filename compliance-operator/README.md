@@ -27,12 +27,12 @@
 
 <managed cluster> oc get ComplianceCheckResult | grep MANUAL
 <managed cluster> oc get ComplianceCheckResult | grep MANUAL | grep ocp4-moderate-general-default-namespace-use
-<managed cluster> oc get compliancecheckresults.compliance.openshift.io ocp4-moderate-general-default-namespace-use -o jsonpath='{.description}'
-<managed cluster> oc get compliancecheckresults.compliance.openshift.io ocp4-moderate-general-default-namespace-use -o jsonpath='{.instructions}'
+<managed cluster> oc get compliancecheckresults.compliance.openshift.io ocp4-moderate-general-default-namespace-use -o jsonpath='{.description}' ; echo
+<managed cluster> oc get compliancecheckresults.compliance.openshift.io ocp4-moderate-general-default-namespace-use -o jsonpath='{.instructions}' ; echo
 
 <managed cluster> oc get ComplianceCheckResult | grep ocp4-moderate-kubeadmin-removed
-<managed cluster> oc get ComplianceCheckResult ocp4-moderate-kubeadmin-removed -o jsonpath='{.description}'
-<managed cluster> oc get ComplianceCheckResult ocp4-moderate-kubeadmin-removed -o jsonpath='{.instructions}'
+<managed cluster> oc get ComplianceCheckResult ocp4-moderate-kubeadmin-removed -o jsonpath='{.description}' ; echo
+<managed cluster> oc get ComplianceCheckResult ocp4-moderate-kubeadmin-removed -o jsonpath='{.instructions}' ; echo
 
 <managed cluster> oc get complianceremediations.compliance.openshift.io
 <managed cluster> oc get complianceremediations.compliance.openshift.io  | grep ocp4-moderate-kubeadmin-removed
