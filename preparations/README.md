@@ -20,11 +20,11 @@
 
 If in manged cluster kubeadmin secret already deleted, recreate it for the demo;
 ```bash
-oc get secret/kubeadmin -n kube-system
+<managed cluster> oc get secret/kubeadmin -n kube-system
 ```
 **IF output == empty:** 
 ```bash
-oc create secret generic kubeadmin --from-literal=password=lol -n kube-system
+<managed cluster> oc create secret generic kubeadmin --from-literal=password=lol -n kube-system
 ```
 
 [Back to main page](https://github.com/tommeramber/openshift-commons)
