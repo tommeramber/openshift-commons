@@ -60,7 +60,4 @@ Wait until policy finishes
 <managed cluster> # oc patch complianceremediations/ocp4-moderate-api-server-encryption-provider-config --patch '{"spec":{"apply":true}}' --type=merge
 ```
 ### Option 2 - using ACM's Governance feature
-**Go to [gatekeeper-operator folder](https://github.com/tommeramber/openshift-commons/tree/master/gatekeeper-operator)**
-
-```
-
+[Back to main page](https://github.com/tommeramber/openshift-commons)
