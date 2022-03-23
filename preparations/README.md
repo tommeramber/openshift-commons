@@ -26,3 +26,5 @@ oc get secret/kubeadmin -n kube-system
 ```bash
 oc create secret generic kubeadmin --from-literal=password=lol -n kube-system
 ```
+
+[Back to main page](https://github.com/tommeramber/openshift-commons)
