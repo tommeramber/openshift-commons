@@ -30,13 +30,16 @@
 <managed cluster> oc get compliancecheckresults.compliance.openshift.io ocp4-moderate-general-default-namespace-use -o jsonpath='{.description}' ; echo
 <managed cluster> oc get compliancecheckresults.compliance.openshift.io ocp4-moderate-general-default-namespace-use -o jsonpath='{.instructions}' ; echo
 
+<managed cluster> oc get ComplianceCheckResult | grep ocp4-moderate-api-server-encryption-provider-config
+<managed cluster> oc get complianceremediations.compliance.openshift.io
+<managed cluster> oc get complianceremediations.compliance.openshift.io  | grep ocp4-moderate-api-server-encryption-provider-config
+<managed cluster> oc get complianceremediations.compliance.openshift.io ocp4-moderate-api-server-encryption-provider-config -o json | jq '"Spec:", .spec,"Status:", .status'
+
 <managed cluster> oc get ComplianceCheckResult | grep ocp4-moderate-kubeadmin-removed
 <managed cluster> oc get ComplianceCheckResult ocp4-moderate-kubeadmin-removed -o jsonpath='{.description}' ; echo
 <managed cluster> oc get ComplianceCheckResult ocp4-moderate-kubeadmin-removed -o jsonpath='{.instructions}' ; echo
 
-<managed cluster> oc get complianceremediations.compliance.openshift.io
-<managed cluster> oc get complianceremediations.compliance.openshift.io  | grep ocp4-moderate-kubeadmin-removed
-<managed cluster> oc get complianceremediations.compliance.openshift.io ocp4-moderate-kubeadmin-removed -o json | jq '"Spec:", .spec,"Status:", .status'
+
 ```
 
 ## How it should look in ACM's UI
