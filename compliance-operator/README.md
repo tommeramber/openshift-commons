@@ -33,7 +33,9 @@
 <managed cluster> oc get ComplianceCheckResult | grep ocp4-moderate-api-server-encryption-provider-config
 <managed cluster> oc get complianceremediations.compliance.openshift.io
 <managed cluster> oc get complianceremediations.compliance.openshift.io  | grep ocp4-moderate-api-server-encryption-provider-config
-<managed cluster> oc get complianceremediations.compliance.openshift.io ocp4-moderate-api-server-encryption-provider-config -o json | jq '"Spec:", .spec,"Status:", .status'
+<managed cluster> oc get complianceremediations.compliance.openshift.io ocp4-moderate-api-server-encryption-provider-config -o json | jq '"Desired State:", .spec.current.object,"Status:", .status'
+<managed cluster> oc get apiserver cluster -o json | jq '"Kind: "+ .kind, "Name: " + .metadata.name, "Spec: ", .spec' 
+
 
 <managed cluster> oc get ComplianceCheckResult | grep ocp4-moderate-kubeadmin-removed
 <managed cluster> oc get ComplianceCheckResult ocp4-moderate-kubeadmin-removed -o jsonpath='{.description}' ; echo
