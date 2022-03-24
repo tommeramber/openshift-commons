@@ -23,7 +23,7 @@
 <managed cluster> oc get ScanSettingBinding moderate -o json | jq '.profiles'
 <managed cluster> watch oc get pods,ComplianceSuite
 
-<managed cluster> oc get ComplianceCheckResult
+<managed cluster> oc get ComplianceCheckResult | less
 <managed cluster> oc get ComplianceCheckResult | grep PASS
 
 <managed cluster> oc get ComplianceCheckResult | grep MANUAL
