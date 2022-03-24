@@ -1,0 +1,72 @@
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-gatekeeper-verify-kubeadmin-deleted
+  namespace: rhacm-policies
+  annotations:
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: CM Configuration Management
+    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: gatekeeper-policy-verify-delete-kubeadmin
+      spec:
+        remediationAction: enforce
+        severity: high
+        object-templates:
+          - complianceType: musthave
+            objectDefinition:
+              apiVersion: templates.gatekeeper.sh/v1beta1
+              kind: ConstraintTemplate
+              metadata:
+                name: k8sdeletekubeadmin
+                annotations:
+                  description: Disallow kubeadmin user to have secrets (disable kubeadmin).
+              spec:
+                crd:
+                  spec:
+                    names:
+                      kind: K8sDeleteKubeadmin
+                targets:
+                  - target: admission.k8s.gatekeeper.sh
+                    rego: |
+                      package K8sDeleteKubeadmin
+                      violation[{"msg": msg}] {
+                        input.review.kind.kind == "Secret"
+                        input.review.object.metadata.name == "kubeadmin"
+                        msg := "kubeadmin secrets still exist on managed cluster"
+                      }
+          - complianceType: musthave
+            objectDefinition:
+              apiVersion: constraints.gatekeeper.sh/v1beta1
+              kind: K8sDeleteKubeadmin
+              metadata:
+                name: delete-kubeadmin
+              spec:
+                enforcementAction: dryrun
+                match:
+                  kinds:
+                    - apiGroups: [""]
+                      kinds: ["Secret"]
+                  namespaces: ["kube-system"]
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-policy-gatekeeper-deleted-kubeadmin
+  namespace: rhacm-policies
+placementRef:
+  name: commons-clusters
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: policy-gatekeeper-verify-kubeadmin-deleted
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
