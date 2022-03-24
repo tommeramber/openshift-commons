@@ -14,7 +14,7 @@ Regenerate Kubeadmin Secret on Managed Cluster
 
 ### 2. Deploy the gatekeeper template + constraint from ACM
 ```bash
-<hub> oc apply -f policy-gatekeeper-verify-kubeadmin-deletd.yaml 
+<hub> oc apply -f policy-gatekeeper-verify-kubeadmin-deleted.yaml 
 ```
 > See the alert in RHACM (We recreated the secert) so it does exist on the cluster which is not a best practice
 
