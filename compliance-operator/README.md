@@ -10,7 +10,7 @@
 <managed cluster> oc project openshift-compliance
 <managed cluster> oc get pods
 <managed cluster> oc get profiles.compliance.openshift.io
-<managed cluster> oc get profiles.compliance.openshift.io ocp4-moderate -ojson | jq '.rules' | less
+<managed cluster> oc get profiles.compliance.openshift.io ocp4-moderate -ojson | jq '"Rules:", .rules' | less
 ```
 ---
 ```bash
