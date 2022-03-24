@@ -6,7 +6,6 @@
 ```bash
 # ssh to hub ocp cluster
 <hub> oc login 
-<hub> git clone https://github.com/openshift-4-compliance/openshift-4-compliance-automation.git
 <hub> git clone https://github.com/tommeramber/openshift-commons.git 
 ```
 
@@ -14,7 +13,6 @@
 ```
 # ssh to managed ocp cluster
 <managed cluster> oc login 
-<managed cluster> git clone https://github.com/openshift-4-compliance/openshift-4-compliance-automation.git
 <managed cluster> git clone https://github.com/tommeramber/openshift-commons.git 
 ```
 
