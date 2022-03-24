@@ -1,4 +1,5 @@
 ```bash
+<hub> cd openshift-commons/compliance-operator
 <hub> oc apply -f policy-compliance-operator.yaml
 ```
 
