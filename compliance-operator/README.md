@@ -21,7 +21,7 @@
 <managed cluster> oc get ScanSettingBinding moderate -o json | jq '.settingsRef'
 <managed cluster> oc get ScanSetting default -o json | jq ' "Shchedule: " + .schedule, "Nodes to Scan: " + .roles[]'
 <managed cluster> oc get ScanSettingBinding moderate -o json | jq '.profiles'
-<managed cluster> oc get ComplianceSuite -w
+<managed cluster> watch oc get pods,ComplianceSuite
 
 <managed cluster> oc get ComplianceCheckResult
 <managed cluster> oc get ComplianceCheckResult | grep PASS
