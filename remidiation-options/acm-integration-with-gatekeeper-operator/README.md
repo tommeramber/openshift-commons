@@ -9,7 +9,7 @@ Regenerate Kubeadmin Secret on Managed Cluster
 ```
 
 ## Instructions 
-### 1. Install the gatekeeper operator policy from ACM - Already Done
+### 1. Install the gatekeeper operator policy from ACM - `Already Done`
 
 ### 2. Deploy the gatekeeper template + constraint from ACM
 ```bash
