@@ -1,4 +1,5 @@
 ```bash
+<hub> cd ~/openshift-commons/compliance-operator
 <hub> oc apply -f policy-compliance-operator.yaml
 ```
 
@@ -9,7 +10,7 @@
 <managed cluster> oc project openshift-compliance
 <managed cluster> oc get pods
 <managed cluster> oc get profiles.compliance.openshift.io
-<managed cluster> oc get profiles.compliance.openshift.io ocp4-moderate -ojson | jq '.rules' | less
+<managed cluster> oc get profiles.compliance.openshift.io ocp4-moderate -ojson | jq '"Rules:", .rules' | less
 ```
 ---
 ```bash
@@ -20,9 +21,9 @@
 <managed cluster> oc get ScanSettingBinding moderate -o json | jq '.settingsRef'
 <managed cluster> oc get ScanSetting default -o json | jq ' "Shchedule: " + .schedule, "Nodes to Scan: " + .roles[]'
 <managed cluster> oc get ScanSettingBinding moderate -o json | jq '.profiles'
-<managed cluster> oc get ComplianceSuite
+<managed cluster> watch oc get pods,ComplianceSuite
 
-<managed cluster> oc get ComplianceCheckResult
+<managed cluster> oc get ComplianceCheckResult | less
 <managed cluster> oc get ComplianceCheckResult | grep PASS
 
 <managed cluster> oc get ComplianceCheckResult | grep MANUAL
@@ -65,6 +66,7 @@
 ### Option 1 - complianceremediations apply=true
 ```bash
 <managed cluster> # oc patch complianceremediations/ocp4-moderate-api-server-encryption-provider-config --patch '{"spec":{"apply":true}}' --type=merge
+<managed cluster> # oc get kubeapiserver -o=jsonpath='{range .items[0].status.conditions[?(@.type=="Encrypted")]}{.reason}{"\n"}{.message}{"\n"}'
 ```
 ### Option 2 - using ACM's Governance feature
 [Back to main page](https://github.com/tommeramber/openshift-commons)
