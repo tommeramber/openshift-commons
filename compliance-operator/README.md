@@ -66,6 +66,7 @@
 ### Option 1 - complianceremediations apply=true
 ```bash
 <managed cluster> # oc patch complianceremediations/ocp4-moderate-api-server-encryption-provider-config --patch '{"spec":{"apply":true}}' --type=merge
+<managed cluster> # oc get kubeapiserver -o=jsonpath='{range .items[0].status.conditions[?(@.type=="Encrypted")]}{.reason}{"\n"}{.message}{"\n"}'
 ```
 ### Option 2 - using ACM's Governance feature
 [Back to main page](https://github.com/tommeramber/openshift-commons)
