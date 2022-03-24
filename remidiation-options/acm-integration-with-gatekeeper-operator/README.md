@@ -3,6 +3,7 @@ Delete ACM's delete kubeadmin policy
 Regenerate Kubeadmin Secret on Managed Cluster
 
 ```bash
+<hub> cd ~/openshift-commons/remidiation-options/acm-integration-with-gatekeeper-operator
 <hub> oc delete -f kubeadmin-policy.yaml
 <managed cluster> oc create secret generic kubeadmin --from-literal=password=lol -n kube-system
 ```
