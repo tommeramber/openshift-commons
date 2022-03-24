@@ -15,12 +15,15 @@ Regenerate Kubeadmin Secret on Managed Cluster
 ### 2. Deploy the gatekeeper template + constraint from ACM
 ```bash
 <hub> oc apply -f policy-gatekeeper-verify-kubeadmin-deleted.yaml 
+<managed cluster> oc get K8sDeleteKubeadmin -o json | jq '.items[0].status.violations'
 ```
 > See the alert in RHACM (We recreated the secert) so it does exist on the cluster which is not a best practice
 
 ### 3. ReDeploy the RHACM govarnance policy which deletes the kubeadmin secret
 ```bash
 <hub> oc apply -f kubeadmin-policy.yaml 
+<managed cluster> watch oc get secret kubeadmin -n kube-system
+<managed cluster> watch oc get K8sDeleteKubeadmin -o jsonpath='{.items[0].status.violations}'
 ```
 
 > See that the alert in RHACM is gone
