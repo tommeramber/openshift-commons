@@ -3,11 +3,18 @@
 > Regenerate kubeadmin secret if it's already deleted
 
 ```bash
-<standalone ocp> $ oc login
-<standalone ocp> $ oc create secret generic kubeadmin --from-literal=password=lol -n kube-system 
+<standalone ocp bastion> $ git clone https://github.com/tommeramber/openshift-commons.git
+<standalone ocp bastion> $ oc login
+<standalone ocp bastion> $ oc create secret generic kubeadmin --from-literal=password=lol -n kube-system 
 ```
 
 ## 1 Install Compliance Operator
+```bash
+<standalone ocp bastion> $ cd ~/openshift-commons/standalone_ocp/compliance_operator
+<standalone ocp bastion> $ oc apply -f compliance-operator.yaml
+<standalone ocp bastion> $ oc get pods -w -n openshift-compliance
+<standalone ocp bastion> $ oc get profiles -w -n openshift-compliance
+```
 
 
 ## 2 Run a Scan
