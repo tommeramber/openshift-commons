@@ -1,4 +1,4 @@
-#Instructions
+# Instructions
 
 > Regenerate kubeadmin secret if it's already deleted
 
@@ -43,4 +43,4 @@
 ## 12 Try recreate Kubeadmin (Constaint == enforce mode)
 
 
-
+Go Back to [MAIN Page](https://github.com/tommeramber/openshift-commons)
