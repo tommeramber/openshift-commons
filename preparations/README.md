@@ -2,6 +2,8 @@
 * Terminal 1 - Cluster Hub
 * Terminal 2 - Managed Cluster
 
+### Import managed cluster to ACM Hub
+
 ### Terminal 1
 ```bash
 # ssh to hub ocp cluster
