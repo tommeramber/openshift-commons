@@ -41,7 +41,7 @@ spec:
                       violation[{"msg": msg}] {
                         input.review.kind.kind == "Secret"
                         input.review.object.metadata.name == "kubeadmin"
-                        msg := "kubeadmin secrets still exist on managed cluster"
+                        msg := "YOU ARE NOT ALLOWED TO CREATE KUBEADMIN HERE!!"
                       }
           - complianceType: musthave
             objectDefinition:
